@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VYRO Register</title>
+<meta name="description" content="Register with VYRO. The first 15 people to register can submit their own custom design.">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="Register with VYRO">
+<meta property="og:description" content="The first 15 registrations can submit their own custom design.">
+<meta property="og:image" content="img/brand-board.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Stencil+One&display=swap">
+<style>
+/* Layout: same black wall as the homepage. Left: the custom-design offer with a 15-mark tally. Right: the form. Stacks to one column on phones. */
+:root{
+  --wall:#0b0b0c;
+  --slab:#161618;
+  --slab-2:#202023;
+  --paint:#f3f2ef;
+  --ash:#9d9c98;
+  --line:#2c2c30;
+  --bad:#ff8a7a;
+  --display:"Archivo","Arial Black",Impact,sans-serif;
+  --stencil:"Saira Stencil One","Archivo","Arial Black",sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+html{background:var(--wall)}
+body{margin:0;background:var(--wall);color:var(--paint);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--paint);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash)}
+h1,h2,h3{font-family:var(--display);font-stretch:125%;font-weight:900;text-wrap:balance;margin:0;line-height:.95;letter-spacing:-.01em;text-transform:uppercase}
+h1{font-size:clamp(44px,8vw,96px)}
+h2{font-size:clamp(28px,4.4vw,44px)}
+h3{font-size:18px;font-stretch:112%;font-weight:800;line-height:1.15}
+p{margin:0}
+.lead{font-size:clamp(17px,2vw,20px);line-height:1.55;max-width:56ch}
+.muted{color:var(--ash)}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--wall) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:24px;height:60px}
+.logo{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:22px;letter-spacing:.06em;text-decoration:none}
+.nav nav{display:flex;gap:22px;margin-left:auto}
+.nav nav a{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--ash)}
+.nav nav a:hover,.nav nav a[aria-current="page"]{color:var(--paint)}
+@media (max-width:760px){
+  .nav .wrap{height:auto;padding-block:10px;flex-wrap:wrap;gap:6px 16px}
+  .nav nav{margin-left:0;width:100%;gap:0;justify-content:space-between;overflow-x:auto}
+  .nav nav a{padding:8px 4px;font-size:11px}
+  .logo{font-size:20px}
+}
+
+main{padding-block:clamp(40px,7vw,88px) clamp(56px,8vw,110px)}
+.intro{display:grid;gap:16px;margin-bottom:clamp(32px,5vw,56px)}
+.layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.layout > *{min-width:0}
+@media (max-width:880px){.layout{grid-template-columns:1fr}}
+
+/* offer panel */
+.offer{background:var(--paint);color:var(--wall);padding:clamp(22px,3.5vw,36px);display:grid;gap:18px;position:sticky;top:84px}
+@media (max-width:880px){.offer{position:static}}
+.offer .eyebrow{color:#55544f}
+.count{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count b{font-family:var(--stencil);font-weight:400;font-size:clamp(84px,12vw,128px);line-height:.85;font-variant-numeric:tabular-nums}
+.count span{font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.tally{display:grid;grid-template-columns:repeat(15,1fr);gap:4px}
+.tally i{display:block;height:26px;border:1.5px solid var(--wall)}
+.tally i.taken{background:var(--wall)}
+.tally-note{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#55544f}
+.offer p{font-size:16px;line-height:1.55}
+.offer ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+
+/* form */
+form{display:grid;gap:22px}
+fieldset{border:1px solid var(--line);margin:0;padding:clamp(18px,3vw,28px);display:grid;gap:18px;min-width:0}
+legend{padding:0 8px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.row2 > *{min-width:0}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.field{display:grid;gap:7px}
+.field label,.label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
+.field label em{font-style:normal;color:#6d6c69;text-transform:none;letter-spacing:0}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:var(--slab);color:var(--paint);border:1px solid var(--line);font:inherit;padding:12px 14px;border-radius:0}
+textarea{min-height:110px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#6d6c69}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--paint)}
+input[aria-invalid="true"]{border-color:var(--bad)}
+.hint{font-size:13px;color:var(--ash)}
+.err{font-size:13px;color:var(--bad)}
+
+.design{border-color:var(--paint)}
+.design .note{display:flex;gap:12px;align-items:flex-start;background:var(--slab);padding:14px 16px;border-left:3px solid var(--paint)}
+.design .note b{font-family:var(--stencil);font-weight:400;font-size:28px;line-height:1}
+.design .note p{font-size:15px}
+.design.closed{border-color:var(--line)}
+.file{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.file input{position:absolute;width:1px;height:1px;opacity:0}
+.file label.pick{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--paint);padding:10px 14px;cursor:pointer;color:var(--paint)}
+.file input:focus-visible + label.pick{outline:2px solid var(--paint);outline-offset:3px}
+.file .fname{font-size:14px;color:var(--ash);overflow-wrap:anywhere;min-width:0}
+.file button{background:none;border:0;color:var(--ash);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:0}
+
+.check{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.check input{margin-top:4px;width:18px;height:18px;accent-color:var(--paint);flex:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.submit{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:15px 22px;border:1px solid var(--paint);background:var(--paint);color:var(--wall);cursor:pointer}
+.btn[disabled]{opacity:.5;cursor:progress}
+.btn.ghost{background:transparent;color:var(--paint)}
+.form-msg{font-size:14px;color:var(--bad);min-height:1.4em}
+
+/* success */
+.done{scroll-margin-top:96px;border:1px solid var(--paint);padding:clamp(22px,4vw,40px);display:grid;gap:18px}
+.done .pos{font-family:var(--stencil);font-size:clamp(64px,10vw,104px);line-height:.85}
+.done .badge{justify-self:start;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;background:var(--paint);color:var(--wall);padding:7px 11px}
+.done .badge.off{background:transparent;color:var(--ash);border:1px solid var(--line)}
+
+footer{border-top:1px solid var(--line);padding-block:32px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html">VYRO</a>
+    <nav aria-label="Main">
+      <a href="index.html#shop">Shop</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#craft">Craft</a>
+      <a href="index.html#join">Contact</a>
+      <a href="register.html" aria-current="page">Register</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="intro">
+      <p class="eyebrow">Join the community</p>
+      <h1>Register with VYRO.</h1>
+      <p class="lead muted">Sign up to hear about new drops first and get early access to limited releases.</p>
+    </div>
+
+    <div class="layout">
+      <aside class="offer" aria-labelledby="offer-title">
+        <p class="eyebrow">Custom design offer</p>
+        <h2 id="offer-title">First 15 design their own.</h2>
+        <div class="count" aria-live="polite">
+          <b id="spotsLeft">15</b><span id="spotsLabel">of 15 spots left</span>
+        </div>
+        <div class="tally" id="tally" aria-hidden="true"></div>
+        <p class="tally-note" id="tallyNote">Each mark is one custom design spot</p>
+        <p>The first 15 people to register can submit their own custom design. VYRO will hand-spray it onto a piece, made just for you.</p>
+        <ul>
+          <li>Describe your idea, or upload a sketch or image</li>
+          <li>We'll contact you to finalise the design, garment and price</li>
+          <li>Once 15 people have registered, the offer closes</li>
+        </ul>
+      </aside>
+
+      <div>
+        <form id="regForm" novalidate>
+          <fieldset>
+            <legend>Your details</legend>
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" autocomplete="name" maxlength="100" required>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" maxlength="150" placeholder="you@example.com" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone <em>(optional)</em></label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="30" placeholder="+264 81 234 5678">
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="town">Town or city <em>(optional)</em></label>
+                <input type="text" id="town" name="town" autocomplete="address-level2" maxlength="80" placeholder="Windhoek">
+              </div>
+              <div class="field">
+                <label for="size">Usual size <em>(optional)</em></label>
+                <select id="size" name="size">
+                  <option value="">Choose a size</option>
+                  <option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
+                  <option value="Not sure">Not sure</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="design" id="designSet">
+            <legend>Your custom design</legend>
+            <div class="note" id="designNote">
+              <b aria-hidden="true">15</b>
+              <p id="designNoteText"><strong>Only the first 15 registrations can submit a custom design.</strong> If you're one of them, tell us your idea below. If the 15 spots are already taken when you register, we'll still sign you up, but we won't save your design.</p>
+            </div>
+            <div id="designFields" class="field" style="gap:18px">
+              <div class="field">
+                <label for="idea">Your design idea <em>(optional)</em></label>
+                <textarea id="idea" name="idea" maxlength="2000" placeholder="E.g. my name in VYRO graffiti lettering across the back of a black hoodie, with the crown in white"></textarea>
+              </div>
+              <div class="field">
+                <span class="label">Sketch or image <em style="font-style:normal;color:#6d6c69;text-transform:none;letter-spacing:0">(optional · JPG, PNG or PDF · up to 5 MB)</em></span>
+                <div class="file">
+                  <input type="file" id="designFile" accept="image/jpeg,image/png,image/webp,application/pdf">
+                  <label class="pick" for="designFile">Choose file</label>
+                  <span class="fname" id="fileName">No file chosen</span>
+                  <button type="button" id="clearFile" hidden>Remove</button>
+                </div>
+                <p class="err" id="fileErr" hidden></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="check">
+            <input type="checkbox" id="updates" name="updates">
+            <label for="updates">Send me news about new drops and releases.</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">I agree that VYRO may store my details to manage my registration and contact me about it.</label>
+          </div>
+
+          <div class="hp" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="submit">
+            <button class="btn" type="submit" id="submitBtn">Register</button>
+            <p class="form-msg" id="formMsg" role="alert"></p>
+          </div>
+        </form>
+
+        <section class="done" id="done" hidden aria-live="polite">
+          <p class="eyebrow">You're registered</p>
+          <p class="pos" id="donePos">#1</p>
+          <span class="badge" id="doneBadge">Custom design spot secured</span>
+          <h2 id="doneTitle">Welcome to VYRO.</h2>
+          <p class="lead muted" id="doneText"></p>
+          <div class="submit">
+            <a class="btn" href="index.html#shop">Back to the shop</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 VYRO Creative CC · Namibia</span>
+    <span>Vyroadmin@gmail.com · +264 83 672 7512</span>
+  </div>
+</footer>
+
+<script>
+/* ===== SETTINGS =====
+   Paste your Google Apps Script web app URL (ends in /exec) between the quotes. */
+var VYRO_REGISTER_URL = 'https://script.google.com/macros/s/AKfycbx9zzlkSGtnb2qx9qH71MHZNQq-MOhqssFEeZlCWXotRCaSnWUSdkeR8kmlDpR2RLd7/exec';
+var DESIGN_LIMIT = 15;
+/* ==================== */
+
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var MAX_BYTES = 5 * 1024 * 1024;
+  var ALLOWED = ['image/jpeg','image/png','image/webp','application/pdf'];
+  var spotsLeft = null; // null = unknown
+
+  // ---- tally ----
+  function drawTally(taken){
+    var t = $('tally'); t.innerHTML = '';
+    for (var i = 0; i < DESIGN_LIMIT; i++){
+      var m = document.createElement('i');
+      if (taken !== null && i < taken) m.className = 'taken';
+      t.appendChild(m);
+    }
+  }
+  function showSpots(left){
+    spotsLeft = left;
+    if (left === null){
+      $('spotsLeft').textContent = DESIGN_LIMIT;
+      $('spotsLabel').textContent = 'custom design spots';
+      $('tallyNote').textContent = 'Each mark is one custom design spot';
+      drawTally(null);
+      return;
+    }
+    var taken = DESIGN_LIMIT - left;
+    $('spotsLeft').textContent = left;
+    $('spotsLabel').textContent = 'of ' + DESIGN_LIMIT + ' spots left';
+    $('tallyNote').textContent = taken === 0 ? 'No spots taken yet' : taken + ' taken · ' + left + ' left';
+    drawTally(taken);
+    var closed = left <= 0;
+    $('designFields').hidden = closed;
+    $('designSet').classList.toggle('closed', closed);
+    if (closed){
+      $('designNoteText').innerHTML = '<strong>All 15 custom design spots have been taken.</strong> You can still register to hear about new drops first.';
+    }
+  }
+  drawTally(null);
+
+  // ---- load live count ----
+  if (VYRO_REGISTER_URL){
+    fetch(VYRO_REGISTER_URL, {method:'GET'})
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if (d && d.ok) showSpots(Math.max(0, d.spotsLeft)); })
+      .catch(function(){ showSpots(null); });
+  }
+
+  // ---- file picker ----
+  var fileData = null;
+  $('designFile').addEventListener('change', function(){
+    var f = this.files && this.files[0];
+    $('fileErr').hidden = true; fileData = null;
+    if (!f){ resetFile(); return; }
+    if (ALLOWED.indexOf(f.type) < 0){ fileError('That file type isn’t supported. Choose a JPG, PNG, WebP or PDF.'); return; }
+    if (f.size > MAX_BYTES){ fileError('That file is ' + (f.size/1048576).toFixed(1) + ' MB. Choose one under 5 MB.'); return; }
+    var reader = new FileReader();
+    reader.onload = function(){
+      var s = String(reader.result); fileData = {name:f.name, type:f.type, data:s.slice(s.indexOf(',') + 1)};
+      $('fileName').textContent = f.name + ' · ' + Math.max(1, Math.round(f.size/1024)) + ' KB';
+      $('clearFile').hidden = false;
+    };
+    reader.onerror = function(){ fileError('We couldn’t read that file. Try choosing it again.'); };
+    reader.readAsDataURL(f);
+  });
+  function fileError(msg){ resetFile(); $('fileErr').textContent = msg; $('fileErr').hidden = false; }
+  function resetFile(){ $('designFile').value = ''; fileData = null; $('fileName').textContent = 'No file chosen'; $('clearFile').hidden = true; }
+  $('clearFile').addEventListener('click', resetFile);
+
+  // ---- submit ----
+  var busy = false;
+  $('regForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    if (busy) return;
+    var msg = $('formMsg'); msg.textContent = '';
+    var name = $('name').value.trim(), email = $('email').value.trim();
+    $('name').setAttribute('aria-invalid', name ? 'false' : 'true');
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    $('email').setAttribute('aria-invalid', emailOk ? 'false' : 'true');
+    if (!name){ msg.textContent = 'Enter your full name.'; $('name').focus(); return; }
+    if (!emailOk){ msg.textContent = 'Enter a full email address, like name@example.com.'; $('email').focus(); return; }
+    if (!$('consent').checked){ msg.textContent = 'Tick the box to agree to VYRO storing your details.'; $('consent').focus(); return; }
+    if (!VYRO_REGISTER_URL){ msg.textContent = 'Registration isn’t open yet. Email Vyroadmin@gmail.com to register.'; return; }
+
+    var designOpen = spotsLeft === null || spotsLeft > 0;
+    var payload = {
+      name: name, email: email,
+      phone: $('phone').value.trim(), town: $('town').value.trim(), size: $('size').value,
+      designIdea: designOpen ? $('idea').value.trim() : '',
+      file: designOpen ? fileData : null,
+      updates: $('updates').checked, consent: true,
+      website: $('website').value
+    };
+
+    busy = true; var btn = $('submitBtn'); btn.disabled = true; btn.textContent = fileData ? 'Uploading…' : 'Registering…';
+    fetch(VYRO_REGISTER_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload)})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (!d || !d.ok){
+          var why = d && d.error === 'missing_fields' ? 'Check your name and email, then try again.' : 'Something went wrong on our side. Try again, or email Vyroadmin@gmail.com.';
+          var er = new Error(why); er.friendly = true; throw er;
+        }
+        showDone(d);
+        if (typeof d.spotsLeft === 'number') showSpots(Math.max(0, d.spotsLeft));
+      })
+      .catch(function(err){
+        msg.textContent = (err && err.friendly) ? err.message :'We couldn’t send your registration. Check your connection and try again, or email Vyroadmin@gmail.com.';
+      })
+      .then(function(){ busy = false; btn.disabled = false; btn.textContent = 'Register'; });
+  });
+
+  function showDone(d){
+    $('regForm').hidden = true; $('done').hidden = false;
+    $('donePos').textContent = '#' + d.position;
+    var b = $('doneBadge');
+    if (d.designSpot){
+      b.textContent = 'Custom design spot secured'; b.className = 'badge';
+      $('doneTitle').textContent = d.duplicate ? 'You’re already registered.' : 'You’re one of the first 15.';
+      $('doneText').textContent = 'You can have your own custom VYRO design. We’ll contact you on ' + (d.email || 'your email') + ' to finalise your design, garment and price.';
+    } else {
+      b.textContent = 'Custom design spots full'; b.className = 'badge off';
+      $('doneTitle').textContent = d.duplicate ? 'You’re already registered.' : 'Welcome to VYRO.';
+      $('doneText').textContent = 'All 15 custom design spots were taken before you registered, but you’re on the list. We’ll let you know about new drops first.';
+    }
+    $('done').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+})();
+</script>
+</body>
+</html>
